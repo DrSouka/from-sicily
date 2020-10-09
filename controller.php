@@ -5,10 +5,10 @@
  * Updated by :
  *
  */
- 
- require 'model/class/page.php';
 
- function pageEssentials($page){
+ require 'view/helper/import-classes.php';
+
+ function page_constructor($page){
    global $errorMessages;
 
    ob_start();
@@ -18,16 +18,16 @@
    require_once "model/dbManager.php";
    require 'view/menu.php';
    */
-   require 'view/'. $page->get_fileName() .'.php';
+   require 'view/'. $page->get_action() .'.php';
 
    $content = ob_get_clean();
    require "view/template.php";
  }
 
  function home(){
-   $home = new Page();
+   $home = new page();
    $home->title = "Home";
-   $home->fileName = "home";
+   $home->action = "home";
 
-   pageEssentials($home);
+   page_constructor($home);
  }

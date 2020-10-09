@@ -7,7 +7,7 @@
  */
 
 /* session_start(); */
-require "controlLer.php";
+require "controller.php";
 
 $errorMessages = array();
 
@@ -40,8 +40,6 @@ if (isset($_GET['action'])) {
       profile();
     break;
 
-
-
     /*
      *
      *  FEATURES
@@ -50,17 +48,17 @@ if (isset($_GET['action'])) {
 
     /* SIGN IN */
     case 'sign-in' :
-      sign-in($_POST);
+      sign_in($_POST);
     break;
 
     /* SIGN OUT */
     case 'sign-out' :
-      sign-out();
+      sign_out();
     break;
 
     /* SIGN UP */
     case 'sign-up' :
-      sign-up($_POST);
+      sign_up($_POST);
     break;
 
     /* DEFAULT */
