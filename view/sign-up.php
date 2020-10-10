@@ -1,3 +1,3 @@
 <section>
-  <p>HOME</p>
+  <p>Sign Up</p>
 </section>

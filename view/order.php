@@ -1,3 +1,3 @@
 <section>
-  <p>HOME</p>
+  <p>Order</p>
 </section>

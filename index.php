@@ -30,12 +30,30 @@ if (isset($_GET['action'])) {
      *
      */
 
-    /* HOME */
     case 'home' :
       home();
     break;
 
-    /* PROFILE */
+    case 'about-us' :
+     about_us();
+    break;
+
+    case 'menu' :
+      menu();
+    break;
+
+    case 'gallery' :
+     gallery();
+    break;
+
+    case 'reservation' :
+      reservation();
+    break;
+
+    case 'order' :
+      order();
+    break;
+
     case 'profile' :
       profile();
     break;
@@ -46,17 +64,14 @@ if (isset($_GET['action'])) {
      *
      */
 
-    /* SIGN IN */
     case 'sign-in' :
       sign_in($_POST);
     break;
 
-    /* SIGN OUT */
     case 'sign-out' :
       sign_out();
     break;
 
-    /* SIGN UP */
     case 'sign-up' :
       sign_up($_POST);
     break;
