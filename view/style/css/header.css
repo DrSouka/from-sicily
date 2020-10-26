@@ -1,0 +1,25 @@
+/**
+ * User: Samuel Meyer
+ * Date: 09.10.2020
+ * Updated by :
+ *
+ */
+
+.header{
+  height: 50;
+  background-color: rgba(0, 0, 0, .2);
+}
+
+.header a{
+  text-decoration: none;
+}
+
+.header a:hover{
+  background-color: rgba(0, 0, 0, .3);
+  transition: .5s;
+}
+
+.header .page{
+  color: #fafafa;
+  font-size: larger;
+}
