@@ -5,20 +5,6 @@
  *
  */
 
- :root {
-   --first-color: #16263D;
-   --sub-first-color: #854462;
-   --second-color: #B05672;
-   --sub-second-color: coral;
-   --back-color: coral;
- }
-
- body{
-   background-color: #485461;
-   background-image: linear-gradient(315deg, #485461 0%, #28313b 74%);
-   width: 100%;
-   margin: 0;
-   background-repeat: no-repeat;
-   background-attachment: fixed;
-   font-weight: lighter;
- }
+body{
+  background-color: aqua;
+}
