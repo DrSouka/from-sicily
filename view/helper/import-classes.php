@@ -8,4 +8,4 @@
 
 /* Import all classes */
 $classes = glob( __DIR__ . '/class/*.php');
-foreach ($classes as $class) {require($class);}
+foreach($classes as $class){require($class);}

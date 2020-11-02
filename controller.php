@@ -12,12 +12,6 @@ function page_constructor($page){
   global $errorMessages;
 
   ob_start();
-
-  /*
-    require "view/viewHelper.php";
-    require_once "model/dbManager.php";
-    require 'view/menu.php';
-  */
   require 'view/'. $_GET['action'] .'.php';
 
   $content = ob_get_clean();

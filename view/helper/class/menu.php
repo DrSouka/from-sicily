@@ -6,66 +6,78 @@
  *
  */
 
-$menu = array(
-  'Home' => array(),
-  'About Us' => array(),
-  'Menu' => array(
-    'dropdown' => array(
-      "Today's special" => array(),
-      'Entree' => array(),
-      'Sandwichs' => array(),
-      'Pasta' => array(),
-      'Pizza' => array(),
-      'Salads' => array(),
-      'Drinks' => array(),
-      'Wines' => array()
-    )
-  ),
-  'Gallery' => array(),
-  'Reservation' => array(),
-  'Order' => array(),
-  'Sign In' => array(),
-  'Sign Up' => array(
-    'type' => 'feature'
-  ),
-  'Profile' => array(
-    'privilege' => 1,
-    'dropdown' => array(
-      "Orders" => array(),
-      'Reservations' => array(),
-      'Clients' => array(
-        'privilege' => 2
-      ),
-      'Dishes' => array(
-        'privilege' => 2
-      ),
-      'Ingredients' => array(
-        'privilege' => 2
-      ),
-      'Settings' => array(),
-      'Sign Out' => array()
-    )
-  )
-);
+class MenuElement {
+  public $title;
+  public $action;
+  public $type;
+  public $privilege;
+  public $dropdown = array();
 
-function create_menu($menu){
-  foreach($menu as $menu_key => $properties){
-    write_page($menu_key, $properties);
-    if(!array_key_exists('dropdown', $properties)){
-      foreach($properties['dropdown'] as $submenu_key){
-        write_page($submenu_key, $properties);
+  function set_Title($title){$this->title = $title;}
+  function get_Title(){return $this->title;}
+
+  function set_Action($action){$this->action = $action;}
+  function get_Action(){return $this->action;}
+
+  function set_Type($type){$this->type = $type;}
+  function get_Type(){return $this->type;}
+
+  function set_Privilege($privilege){$this->privilege = $privilege;}
+  function get_Privilege(){return $this->privilege;}
+
+  function WriteInMenu($current_user_privilege){
+    if(empty($this->action)){$this->action = str_replace(' ', '_', strtolower($this->title));}
+    if(empty($this->privilege)){$this->privilege = 0;}
+    if(empty($this->type)){$this->type = 'page';}
+
+    if($this->privilege <= $current_user_privilege){
+      return "<a class='". $this->type ."' href='index.php?action=". $this->action ."'>". $this->title ."</a>". PHP_EOL;
+    }
+  }
+
+  function WriteDropdown($current_user_privilege){
+    $html = '';
+
+    if($this->privilege <= $current_user_privilege){
+      $html .= "<div class='dropdown-content'>";
+      foreach($this->dropdown as $subpage){
+        $subpage->type = 'subpage';
+        $html .= $subpage->WriteInMenu($current_user_privilege);
+      }
+      $html .= '</div>'. PHP_EOL;
+    }
+    return $html;
+  }
+}
+
+function write_menu($menu){
+  $current_user_privilege = 0;
+  $html = '';
+
+  /*
+  if($current_user_privilege >= 1){
+    foreach($menu as $menu_element) {
+      if(
+        $menu_element->title == 'Sign in' ||
+        $menu_element->title == 'Sign up'
+      ){
+        unset($menu[$menu_element]);
       }
     }
   }
-}
+  */
 
-function write_page($menu_element, $properties){
-  if(!array_key_exists('action', $properties)){$properties['action'] = str_replace(' ', '_', strtolower($menu_element));}
-  if(!array_key_exists('privilege', $properties)){$properties['privilege'] = 0;}
-  if(!array_key_exists('type', $properties)){$properties['type'] = 'page';}
-  if($properties['privilege'] == 0){
-    echo "<a class='". $properties['type'] ."' href='index.php?action=". $properties['action'] ."'>". $menu_element ."</a>";
+  foreach($menu as $menu_element){
+    if(!empty($menu_element->dropdown)){
+      $html .= "<div class='dropdown'>";
+    }else{
+      $html .= '<div>';
+    }
+    $html .= $menu_element->WriteInMenu($current_user_privilege);
+    if(!empty($menu_element->dropdown)){
+      $html .= $menu_element->WriteDropdown($current_user_privilege);
+    }
+    $html .= '</div>';
   }
+  return $html;
 }
-
-create_menu($menu);
